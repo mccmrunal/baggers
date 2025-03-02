@@ -1,19 +1,97 @@
-.loader-container {
+/* General Styling */
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
   text-align: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* App Container */
+.App {
+  width: 90%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Header */
+header h1 {
+  font-size: 24px;
+  color: #f9f9f9;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.chart-btn {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chart-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+.chart-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* Loader */
+.loader-container {
   margin-top: 20px;
 }
 
 .loader {
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #3498db;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid #ff416c;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
   display: inline-block;
+  margin-bottom: 10px;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Response Message */
+.response-message {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #ffeb3b;
+}
+
+/* Footer */
+footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ddd;
 }

@@ -1,14 +1,15 @@
 module.exports = {
-    filterStocks: async function (fyers, symbol, delay = 15) { // Default delay of 1 second
+    filterStocks: async function (fyers, symbol,timeframe, delay = 15) { // Default delay of 1 second
         try {            
             await new Promise(resolve => setTimeout(resolve, delay)); // Delay to prevent rate limiting
-            
+            let startTimeDay = "1740627900";
+            let endTime =  parseInt(startTimeDay) + timeframe*60;
             const inp = {
                 symbol: `NSE:${symbol}-EQ`,
-                resolution: "5",
+                resolution:timeframe,
                 date_format: "0",
-                range_from: "1740627900",
-                range_to: "1740628200",
+                range_from:startTimeDay ,
+                range_to: endTime,
                 cont_flag: "1"
             };
 

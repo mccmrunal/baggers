@@ -113,14 +113,14 @@ const stockArray = JSON.parse(fs.readFileSync('./dynamicData/fno_stock_names.jso
 
 
 
-async function processStocksInBatches (fyers, stockArray, batchSize = 10, delay = 1000) {
+async function processStocksInBatches (fyers, stockArray,timeframe, batchSize = 10, delay = 1000) {
   const filteredStocks = [];
 
   for (let i =  0; i < stockArray.length; i += batchSize) {
       const batch = stockArray.slice(i, i + batchSize); // Get next batch of stocks
       
       const results = await Promise.all(
-          batch.map(symbol =>filterStocks(fyers, symbol, delay))
+          batch.map(symbol =>filterStocks(fyers, symbol, timeframe,timeframe,delay))
       );
 
       // Add only the stocks that returned a valid symbol
@@ -134,10 +134,10 @@ async function processStocksInBatches (fyers, stockArray, batchSize = 10, delay 
 let filteredArray = [];
 console.log(filteredArray)
 
- async function fetchStocks(){
+ async function fetchStocks(timeframe){
   await checkAccess();
   // await fetchFnoStocks();
-  filteredArray = await processStocksInBatches(fyers, stockArray, 10, 1000);
+  filteredArray = await processStocksInBatches(fyers, stockArray,timeframe, 10, 1000);
   console.log(filteredArray)
   return filteredArray;
 }

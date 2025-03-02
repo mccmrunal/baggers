@@ -30,7 +30,7 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/stocks', async (req, res) => {
-  let data =  await test1();
+  let data =  await test1(req.query.timeframe);
   res.json(data);
 });
 
