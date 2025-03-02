@@ -3,11 +3,45 @@ import axios from "axios";
 import crypto from "crypto";
 import fs from "fs";
 import dotenv from "dotenv";
+import csv from "csv-parser";
+import { filterStocks } from "./dynamicData/filteredStocks.js";
 const TOKEN_FILE = "fyers_token.json"; // File to store token details
 dotenv.config();
 var fyers = new FyersAPI();
 fyers.setAppId(process.env.appId);
 fyers.setRedirectUrl(`https://127.0.0.1`);
+let url = "https://public.fyers.in/sym_details/NSE_FO.csv";
+// Function to fetch and filter F&O stocks
+async function fetchFnoStocks() {
+  try {
+      console.log("Downloading F&O stock list...");
+      const response = await axios.get(url, { responseType: "stream" });
+
+      const stockSet = new Set(); // To store unique stock names
+
+      response.data.pipe(csv({ headers: false }))
+          .on("data", (row) => {
+              const symbol = row[9]; // Column 9 contains full symbol (e.g., NSE:KALYANKJIL25MAR380PE)
+              
+              // Extract stock name (everything after NSE: and before the date)
+              const match = symbol.match(/^NSE:([A-Z0-9&-]+)(?=\d{2}[A-Z]{3})/);
+              if (match) {
+                  stockSet.add(match[1]); // Add stock name to Set (avoid duplicates)
+              }
+          })
+          .on("end", () => {
+              const stockList = Array.from(stockSet).sort(); // Convert to array & sort
+              console.log(`Total unique F&O stocks: ${stockList.length}`);
+              
+              fs.writeFileSync("fno_stock_names.json", JSON.stringify(stockList, null, 2));
+              console.log("✅ Stock names saved to fno_stock_names.json");
+          });
+
+  } catch (error) {
+      console.error("❌ Error fetching F&O stocks:", error);
+  }
+}
+
 const appIdHash = crypto.createHash("sha256").update(`${process.env.appId}:${process.env.appSecret}`).digest("hex");
 const requestBody = {
   grant_type: "refresh_token",
@@ -26,8 +60,6 @@ async function refreshAccessToken() {
 
     if (response.data.s === "ok") {
       const newAccessToken = response.data.access_token;
-      console.log("✅ New Access Token:", newAccessToken);
-
       // Save the new access token with timestamp
       fs.writeFileSync(TOKEN_FILE, JSON.stringify({ access_token: newAccessToken, updated_at: new Date() }, null, 2), { flag: 'w' });
     } else {
@@ -61,22 +93,53 @@ function ensureTokenFileExists() {
   }
 }
 
-try{
-  if (isTokenExpired()) {
-    console.log("🔄 Token expired. Refreshing...");
-    await refreshAccessToken();
-  } else {
-    console.log("✅ Token is still valid. No refresh needed.");
+async function checkAccess(){
+  try{
+    if (isTokenExpired()) {
+      console.log("🔄 Token expired. Refreshing...");
+      await refreshAccessToken();
+    } else {
+      console.log("✅ Token is still valid. No refresh needed.");
+    }
+  } catch(error){
+    console.error("❌ Error checking token expiry:", error);
+  }finally{
+    fyers.setAccessToken(JSON.parse(fs.readFileSync(TOKEN_FILE, "utf-8")).access_token);
+    console.log("🚀 Starting the server...");
   }
-} catch(error){
-  console.error("❌ Error checking token expiry:", error);
-}finally{
-  fyers.setAccessToken(JSON.parse(fs.readFileSync(TOKEN_FILE, "utf-8")).access_token);
-  console.log("🚀 Starting the server...");
 }
 
-fyers.get_orders().then((response) => {
-  console.log(response)
-}).catch((error) => {
-  console.log(error)
-})
+const stockArray = JSON.parse(fs.readFileSync('./dynamicData/fno_stock_names.json', 'utf8'));
+
+
+
+async function processStocksInBatches (fyers, stockArray, batchSize = 10, delay = 1000) {
+  const filteredStocks = [];
+
+  for (let i =  0; i < stockArray.length; i += batchSize) {
+      const batch = stockArray.slice(i, i + batchSize); // Get next batch of stocks
+      
+      const results = await Promise.all(
+          batch.map(symbol =>filterStocks(fyers, symbol, delay))
+      );
+
+      // Add only the stocks that returned a valid symbol
+      filteredStocks.push(...results.filter(Boolean));
+
+      await new Promise(resolve => setTimeout(resolve, delay)); // Delay between batches
+  }
+
+  return filteredStocks; // Return all valid stocks
+}
+let filteredArray = [];
+console.log(filteredArray)
+
+ async function fetchStocks(){
+  await checkAccess();
+  // await fetchFnoStocks();
+  filteredArray = await processStocksInBatches(fyers, stockArray, 10, 1000);
+  console.log(filteredArray)
+  return filteredArray;
+}
+
+export default fetchStocks;

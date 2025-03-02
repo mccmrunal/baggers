@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { NSELive } from 'nse-api-package'; // Import the class correctly
 let nselive = new NSELive(); // Create an instance of the class
+import test1 from './test1.js'; // Must include .js extension
 
 
 const app = express();
@@ -28,8 +29,8 @@ app.get('/', async (req, res) => {
   res.json(data);
 });
 
-app.get('/indices', async (req, res) => {
-  const data = await nselive.allIndices();
+app.get('/stocks', async (req, res) => {
+  let data =  await test1();
   res.json(data);
 });
 

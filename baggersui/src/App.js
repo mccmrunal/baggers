@@ -1,43 +1,70 @@
-import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [message, setMessage] = useState('');
-  const [stockName, setStockName] = useState(''); // Manage input state
+  const [responseMessage, setResponseMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [timer, setTimer] = useState(0);
 
-  function fetchStockDetails() {
-    console.log(`Fetching details for stock: ${stockName}`);
+  const fetchStockDetails = async () => {
+    setLoading(true);
+    setResponseMessage("");
+    setTimer(0);
 
-    axios.get(`http://localhost:3000/?stockName=${stockName}`)
-      .then((response) => {
-        console.log(response.data); // Log the data, not setMessage
-        setMessage(response.data);
-      })
-      .catch((error) => {
-        console.error('There was an error fetching the stock details!', error);
-      });
-  }
-  function fetchAllIndices() {
-    axios.get(`http://localhost:3000/indices`)
-      .then((response) => {
-        setMessage(response.data);
-      })
-      .catch((error) => {
-        console.error('There was an error fetching the indices!', error);
-      });
-  }
+    let timeElapsed = 0; // Local timer variable
+
+    // Start the timer
+    const timerInterval = setInterval(() => {
+      timeElapsed += 1;
+      setTimer(timeElapsed);
+    }, 1000);
+
+    try {
+      const response = await fetch("http://localhost:3000/stocks");
+      const data = await response.json();
+
+      if (Array.isArray(data)) {
+        clearInterval(timerInterval); // Stop timer when data is received
+
+        // Open stock URLs
+        data.forEach((symbol) => {
+          const url = `https://www.tradingview.com/chart/?symbol=NSE%3A${symbol}`;
+          window.open(url, "_blank");
+        });
+
+        setLoading(false);
+        setResponseMessage(`Stocks opened in ${timeElapsed} seconds!`); // Use local timer variable
+      }
+    } catch (error) {
+      clearInterval(timerInterval);
+      console.error("Error fetching data:", error);
+      setResponseMessage("Error fetching data");
+      setLoading(false);
+    }
+  };
 
   return (
-    <div>
-      <input 
-        type="text" 
-        value={stockName}
-        onChange={(e) => setStockName(e.target.value)}
-        placeholder="Enter stock name" 
-      />
-      <button onClick={fetchStockDetails}>Fetch Stock Details</button>
-      <button onClick={fetchAllIndices}>Fetch All Indices</button>
-      <div>Stock details: {JSON.stringify(message)}</div>
+    <div className="App">
+      <header>
+        <h1>Welcome to Baggers UI</h1>
+      </header>
+      <main>
+        <button onClick={fetchStockDetails} disabled={loading}>
+          {loading ? "Fetching..." : "Fetch Data"}
+        </button>
+
+        {loading && (
+          <div className="loader-container">
+            <div className="loader"></div>
+            <p>Fetching data... {timer} sec</p>
+          </div>
+        )}
+
+        <p>{responseMessage}</p>
+      </main>
+      <footer>
+        <p>&copy; 2023 Baggers. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
