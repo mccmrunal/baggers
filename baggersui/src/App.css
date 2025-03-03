@@ -1,63 +1,94 @@
 /* General Styling */
 body {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  color: white;
-  text-align: center;
+  background: #f4f4f9;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
-/* App Container */
 .App {
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
   width: 90%;
   max-width: 600px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Header */
-header h1 {
+header {
+  background: linear-gradient(135deg, #4CAF50, #2E8B57);
+  padding: 15px;
+  color: white;
   font-size: 24px;
-  color: #f9f9f9;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Button Container */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 /* Buttons */
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.chart-btn {
-  background: linear-gradient(45deg, #ff416c, #ff4b2b);
-  border: none;
+button {
+  background: linear-gradient(135deg, #4CAF50, #2E8B57);
   color: white;
+  font-size: 18px;
   padding: 12px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 8px;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
-.chart-btn:hover {
+button:hover {
+  background: linear-gradient(135deg, #2E8B57, #1E693A);
   transform: scale(1.05);
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
 }
 
-.chart-btn:disabled {
-  background: #999;
+button:disabled {
+  background: #cccccc;
   cursor: not-allowed;
+}
+
+/* Date Picker */
+.date-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.date-picker label {
+  font-weight: bold;
+  margin: 5px;
+}
+
+.date-picker input {
+  width: 200px;
+  padding: 10px;
+  margin: 5px 0;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.date-picker input:focus {
+  border-color: #2E8B57;
+  box-shadow: 0px 0px 5px #2E8B57;
 }
 
 /* Loader */
@@ -66,14 +97,13 @@ header h1 {
 }
 
 .loader {
-  border: 5px solid rgba(255, 255, 255, 0.3);
-  border-top: 5px solid #ff416c;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #4CAF50;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
-  display: inline-block;
-  margin-bottom: 10px;
+  margin: auto;
 }
 
 @keyframes spin {
@@ -83,15 +113,16 @@ header h1 {
 
 /* Response Message */
 .response-message {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   margin-top: 20px;
-  color: #ffeb3b;
+  color: #333;
 }
 
 /* Footer */
 footer {
   margin-top: 20px;
+  padding: 10px;
   font-size: 14px;
-  color: #ddd;
+  color: #555;
 }
