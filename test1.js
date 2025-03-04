@@ -127,7 +127,7 @@ async function processStocksInBatches(fyers, stockArray, timestamp, delayBetween
             if(callfunc){
               result = await callfunc(fyers, symbol, timestamp);
             }else{
-               result = await filterStocks(fyers, symbol, timeframe);
+               result = await filterStocks(fyers, symbol, timeframe,delayBetweenRequests,timestamp);
             }
             filteredStocks.push(result);
         } catch (error) {

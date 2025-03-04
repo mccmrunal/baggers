@@ -112,7 +112,6 @@ module.exports = {
             }
 
             console.log(`📌 No Trade Executed for ${symbol}`);
-            excelLogger.logTradeResult(symbol, trend, entryPrice, stopLoss, targetPrice, "NO TRADE");
             return "NO TRADE";
         } catch (error) {
             if (error.code === 429) {
