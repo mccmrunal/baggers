@@ -1,8 +1,10 @@
 let fs = require("fs"); 
 let xlsx = require("xlsx"); 
 module.exports = {
-     logTradeResult: async function(symbol, trend, entryPrice, stopLoss, targetPrice, result) {
+     logTradeResult: async function(dateepoch,symbol, trend, entryPrice, stopLoss, targetPrice, result) {
         const filePath = "trade_results.xlsx";
+        const epochTime = dateepoch; // Replace with your epoch timestamp
+        const date = new Date(epochTime * 1000); // Convert to milliseconds
         //create file is doesnt exists
         if (!fs.existsSync(filePath
         )) {
@@ -11,14 +13,16 @@ module.exports = {
             xlsx.utils.book_append_sheet(workbook, worksheet, "TradeResults");
             xlsx.writeFile(workbook, filePath);
         }
-        const date = new Date().toISOString().split("T")[0]; // Get today's date (YYYY-MM-DD)
         let sheetName = "TradeResults";
         let workbook, worksheet, sheetData;
     
         // Calculate loss percentage (only for losses)
-        let lossPercentage = result === "LOSS" ? "-"+((Math.abs(entryPrice - stopLoss) / entryPrice) * 100).toFixed(2)  : "1";
+        let lossPercentage = result === "LOSS" ? "-"+((Math.abs(entryPrice - stopLoss) / entryPrice) * 100).toFixed(3)  : "1";
         if(result === "NO TRADE"){
             lossPercentage = 0;
+        }
+        if(result.type === "CLOSED"){
+            lossPercentage = result.profit
         }
         // Check if the file exists
         if (fs.existsSync(filePath)) {
@@ -34,7 +38,7 @@ module.exports = {
         sheetData = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
     
         // Append new row with trade details
-        sheetData.push([date, symbol, trend, entryPrice, stopLoss, targetPrice, result, lossPercentage]);
+        sheetData.push([date.toLocaleString(), symbol, trend, entryPrice, stopLoss, targetPrice, result, lossPercentage]);
     
         // Convert data back to worksheet & update workbook
         const updatedSheet = xlsx.utils.aoa_to_sheet(sheetData);

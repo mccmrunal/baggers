@@ -1,8 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import * as xlsx from "xlsx";
 
 function App() {
+  useEffect(() => {
+    const now = new Date();
+    const targetTime = new Date();
+    targetTime.setHours(9, 20, 0, 0); // Set time to 9:20 AM
+  
+    const timeUntilTarget = targetTime.getTime() - now.getTime();
+    console.log(timeUntilTarget)
+    if (timeUntilTarget > 0) {
+      setTimeout(() => {
+        console.log("⏰ Clicking 5 Min Chart Button at 9:20 AM!");
+        document.getElementById("fiveMinChartBtn")?.click();
+      }, timeUntilTarget);
+    }
+  }, []);
   const [responseMessage, setResponseMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState(0);
@@ -80,6 +94,7 @@ function App() {
     }
   };
   
+  
   const fetchStockDetails = async (timeframe) => {
     setLoading(true);
     setResponseMessage("");
@@ -105,7 +120,7 @@ function App() {
         });
 
         setLoading(false);
-        setResponseMessage(`Stocks opened in ${timeElapsed} seconds!`);
+        setResponseMessage(`Stocks opened in ${data}   seconds!`);
       }
     } catch (error) {
       clearInterval(timerInterval);
@@ -125,7 +140,7 @@ function App() {
       </header>
       <main>
         <div className="button-container">
-          <button className="chart-btn" onClick={() => fetchStockDetails(5)} disabled={loading}>
+          <button   id="fiveMinChartBtn" className="chart-btn" onClick={() => fetchStockDetails(5)} disabled={loading}>
             {loading ? "Fetching..." : "5 Min Chart"}
           </button>
 

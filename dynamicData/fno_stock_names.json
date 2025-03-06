@@ -1,223 +1,862 @@
 [
-  "AARTIIND",
-  "ABB",
-  "ABCAPITAL",
-  "ABFRL",
-  "ACC",
-  "ADANIENSOL",
-  "ADANIENT",
-  "ADANIGREEN",
-  "ADANIPORTS",
-  "ALKEM",
-  "AMBUJACEM",
-  "ANGELONE",
-  "APLAPOLLO",
-  "APOLLOHOSP",
-  "APOLLOTYRE",
-  "ASHOKLEY",
-  "ASIANPAINT",
-  "ASTRAL",
-  "ATGL",
-  "AUBANK",
-  "AUROPHARMA",
-  "AXISBANK",
-  "BAJAJ-AUTO",
-  "BAJAJFINSV",
-  "BAJFINANCE",
-  "BALKRISIND",
-  "BANDHANBNK",
-  "BANKBARODA",
-  "BANKINDIA",
-  "BANKNIFTY",
-  "BEL",
-  "BERGEPAINT",
-  "BHARATFORG",
-  "BHARTIARTL",
-  "BHEL",
-  "BIOCON",
-  "BOSCHLTD",
-  "BPCL",
-  "BRITANNIA",
-  "BSE",
-  "BSOFT",
-  "CAMS",
-  "CANBK",
-  "CDSL",
-  "CESC",
-  "CGPOWER",
-  "CHAMBLFERT",
-  "CHOLAFIN",
-  "CIPLA",
-  "COALINDIA",
-  "COFORGE",
-  "COLPAL",
-  "CONCOR",
-  "CROMPTON",
-  "CUMMINSIND",
-  "CYIENT",
-  "DABUR",
-  "DALBHARAT",
-  "DEEPAKNTR",
-  "DELHIVERY",
-  "DIVISLAB",
-  "DIXON",
-  "DLF",
-  "DMART",
-  "DRREDDY",
-  "EICHERMOT",
-  "ESCORTS",
-  "EXIDEIND",
-  "FEDERALBNK",
-  "FINNIFTY",
-  "GAIL",
-  "GLENMARK",
-  "GMRAIRPORT",
-  "GODREJCP",
-  "GODREJPROP",
-  "GRANULES",
-  "GRASIM",
-  "HAL",
-  "HAVELLS",
-  "HCLTECH",
-  "HDFCAMC",
-  "HDFCBANK",
-  "HDFCLIFE",
-  "HEROMOTOCO",
-  "HFCL",
-  "HINDALCO",
-  "HINDCOPPER",
-  "HINDPETRO",
-  "HINDUNILVR",
-  "HUDCO",
-  "ICICIBANK",
-  "ICICIGI",
-  "ICICIPRULI",
-  "IDEA",
-  "IDFCFIRSTB",
-  "IEX",
-  "IGL",
-  "IIFL",
-  "INDHOTEL",
-  "INDIANB",
-  "INDIGO",
-  "INDUSINDBK",
-  "INDUSTOWER",
-  "INFY",
-  "IOC",
-  "IRB",
-  "IRCTC",
-  "IREDA",
-  "IRFC",
-  "ITC",
-  "JINDALSTEL",
-  "JIOFIN",
-  "JKCEMENT",
-  "JSL",
-  "JSWENERGY",
-  "JSWSTEEL",
-  "JUBLFOOD",
-  "KALYANKJIL",
-  "KEI",
-  "KOTAKBANK",
-  "KPITTECH",
-  "LAURUSLABS",
-  "LICHSGFIN",
-  "LICI",
-  "LODHA",
-  "LT",
-  "LTF",
-  "LTIM",
-  "LTTS",
-  "LUPIN",
-  "M&M",
-  "M&MFIN",
-  "MANAPPURAM",
-  "MARICO",
-  "MARUTI",
-  "MAXHEALTH",
-  "MCX",
-  "MFSL",
-  "MGL",
-  "MIDCPNIFTY",
-  "MOTHERSON",
-  "MPHASIS",
-  "MRF",
-  "MUTHOOTFIN",
-  "NATIONALUM",
-  "NAUKRI",
-  "NBCC",
-  "NCC",
-  "NESTLEIND",
-  "NHPC",
-  "NIFTY",
-  "NIFTYNXT50",
-  "NMDC",
-  "NTPC",
-  "NYKAA",
-  "OBEROIRLTY",
-  "OFSS",
-  "OIL",
-  "ONGC",
-  "PAGEIND",
-  "PATANJALI",
-  "PAYTM",
-  "PEL",
-  "PERSISTENT",
-  "PETRONET",
-  "PFC",
-  "PHOENIXLTD",
-  "PIDILITIND",
-  "PIIND",
-  "PNB",
-  "POLICYBZR",
-  "POLYCAB",
-  "POONAWALLA",
-  "POWERGRID",
-  "PRESTIGE",
-  "RAMCOCEM",
-  "RBLBANK",
-  "RECLTD",
-  "RELIANCE",
-  "SAIL",
-  "SBICARD",
-  "SBILIFE",
-  "SBIN",
-  "SHREECEM",
-  "SHRIRAMFIN",
-  "SIEMENS",
-  "SJVN",
-  "SOLARINDS",
-  "SONACOMS",
-  "SRF",
-  "SUNPHARMA",
-  "SUPREMEIND",
-  "SYNGENE",
-  "TATACHEM",
-  "TATACOMM",
-  "TATACONSUM",
-  "TATAELXSI",
-  "TATAMOTORS",
-  "TATAPOWER",
-  "TATASTEEL",
-  "TATATECH",
-  "TCS",
-  "TECHM",
-  "TIINDIA",
-  "TITAGARH",
-  "TITAN",
-  "TORNTPHARM",
-  "TORNTPOWER",
-  "TRENT",
-  "TVSMOTOR",
-  "ULTRACEMCO",
-  "UNIONBANK",
-  "UNITDSPR",
-  "UPL",
-  "VBL",
-  "VEDL",
-  "VOLTAS",
-  "WIPRO",
-  "YESBANK",
-  "ZOMATO",
-  "ZYDUSLIFE"
+  {
+    "symbol": "AARTIIND",
+    "asset_key": "NSE_EQ|INE769A01020"
+  },
+  {
+    "symbol": "ABB",
+    "asset_key": "NSE_EQ|INE117A01022"
+  },
+  {
+    "symbol": "ABCAPITAL",
+    "asset_key": "NSE_EQ|INE674K01013"
+  },
+  {
+    "symbol": "ABFRL",
+    "asset_key": "NSE_EQ|INE647O01011"
+  },
+  {
+    "symbol": "ACC",
+    "asset_key": "NSE_EQ|INE012A01025"
+  },
+  {
+    "symbol": "ADANIENSOL",
+    "asset_key": "NSE_EQ|INE931S01010"
+  },
+  {
+    "symbol": "ADANIENT",
+    "asset_key": "NSE_EQ|INE423A01024"
+  },
+  {
+    "symbol": "ADANIGREEN",
+    "asset_key": "NSE_EQ|INE364U01010"
+  },
+  {
+    "symbol": "ADANIPORTS",
+    "asset_key": "NSE_EQ|INE742F01042"
+  },
+  {
+    "symbol": "ALKEM",
+    "asset_key": "NSE_EQ|INE540L01014"
+  },
+  {
+    "symbol": "AMBUJACEM",
+    "asset_key": "NSE_EQ|INE079A01024"
+  },
+  {
+    "symbol": "ANGELONE",
+    "asset_key": "NSE_EQ|INE732I01013"
+  },
+  {
+    "symbol": "APLAPOLLO",
+    "asset_key": "NSE_EQ|INE702C01027"
+  },
+  {
+    "symbol": "APOLLOHOSP",
+    "asset_key": "NSE_EQ|INE437A01024"
+  },
+  {
+    "symbol": "APOLLOTYRE",
+    "asset_key": "NSE_EQ|INE438A01022"
+  },
+  {
+    "symbol": "ASHOKLEY",
+    "asset_key": "NSE_EQ|INE208A01029"
+  },
+  {
+    "symbol": "ASIANPAINT",
+    "asset_key": "NSE_EQ|INE021A01026"
+  },
+  {
+    "symbol": "ASTRAL",
+    "asset_key": "NSE_EQ|INE006I01046"
+  },
+  {
+    "symbol": "ATGL",
+    "asset_key": "NSE_EQ|INE399L01023"
+  },
+  {
+    "symbol": "AUBANK",
+    "asset_key": "NSE_EQ|INE949L01017"
+  },
+  {
+    "symbol": "AUROPHARMA",
+    "asset_key": "NSE_EQ|INE406A01037"
+  },
+  {
+    "symbol": "AXISBANK",
+    "asset_key": "NSE_EQ|INE238A01034"
+  },
+  {
+    "symbol": "BAJAJ-AUTO",
+    "asset_key": "NSE_EQ|INE917I01010"
+  },
+  {
+    "symbol": "BAJAJFINSV",
+    "asset_key": "NSE_EQ|INE918I01026"
+  },
+  {
+    "symbol": "BAJFINANCE",
+    "asset_key": "NSE_EQ|INE296A01024"
+  },
+  {
+    "symbol": "BALKRISIND",
+    "asset_key": "NSE_EQ|INE787D01026"
+  },
+  {
+    "symbol": "BANDHANBNK",
+    "asset_key": "NSE_EQ|INE545U01014"
+  },
+  {
+    "symbol": "BANKBARODA",
+    "asset_key": "NSE_EQ|INE028A01039"
+  },
+  {
+    "symbol": "BANKINDIA",
+    "asset_key": "NSE_EQ|INE084A01016"
+  },
+  {
+    "symbol": "BEL",
+    "asset_key": "NSE_EQ|INE263A01024"
+  },
+  {
+    "symbol": "BERGEPAINT",
+    "asset_key": "NSE_EQ|INE463A01038"
+  },
+  {
+    "symbol": "BHARATFORG",
+    "asset_key": "NSE_EQ|INE465A01025"
+  },
+  {
+    "symbol": "BHARTIARTL",
+    "asset_key": "NSE_EQ|INE397D01024"
+  },
+  {
+    "symbol": "BHEL",
+    "asset_key": "NSE_EQ|INE257A01026"
+  },
+  {
+    "symbol": "BIOCON",
+    "asset_key": "NSE_EQ|INE376G01013"
+  },
+  {
+    "symbol": "BOSCHLTD",
+    "asset_key": "NSE_EQ|INE323A01026"
+  },
+  {
+    "symbol": "BPCL",
+    "asset_key": "NSE_EQ|INE029A01011"
+  },
+  {
+    "symbol": "BRITANNIA",
+    "asset_key": "NSE_EQ|INE216A01030"
+  },
+  {
+    "symbol": "BSE",
+    "asset_key": "NSE_EQ|INE118H01025"
+  },
+  {
+    "symbol": "BSOFT",
+    "asset_key": "NSE_EQ|INE836A01035"
+  },
+  {
+    "symbol": "CAMS",
+    "asset_key": "NSE_EQ|INE596I01012"
+  },
+  {
+    "symbol": "CANBK",
+    "asset_key": "NSE_EQ|INE476A01022"
+  },
+  {
+    "symbol": "CDSL",
+    "asset_key": "NSE_EQ|INE736A01011"
+  },
+  {
+    "symbol": "CESC",
+    "asset_key": "NSE_EQ|INE486A01021"
+  },
+  {
+    "symbol": "CGPOWER",
+    "asset_key": "NSE_EQ|INE067A01029"
+  },
+  {
+    "symbol": "CHAMBLFERT",
+    "asset_key": "NSE_EQ|INE085A01013"
+  },
+  {
+    "symbol": "CHOLAFIN",
+    "asset_key": "NSE_EQ|INE121A01024"
+  },
+  {
+    "symbol": "CIPLA",
+    "asset_key": "NSE_EQ|INE059A01026"
+  },
+  {
+    "symbol": "COALINDIA",
+    "asset_key": "NSE_EQ|INE522F01014"
+  },
+  {
+    "symbol": "COFORGE",
+    "asset_key": "NSE_EQ|INE591G01017"
+  },
+  {
+    "symbol": "COLPAL",
+    "asset_key": "NSE_EQ|INE259A01022"
+  },
+  {
+    "symbol": "CONCOR",
+    "asset_key": "NSE_EQ|INE111A01025"
+  },
+  {
+    "symbol": "CROMPTON",
+    "asset_key": "NSE_EQ|INE299U01018"
+  },
+  {
+    "symbol": "CUMMINSIND",
+    "asset_key": "NSE_EQ|INE298A01020"
+  },
+  {
+    "symbol": "CYIENT",
+    "asset_key": "NSE_EQ|INE136B01020"
+  },
+  {
+    "symbol": "DABUR",
+    "asset_key": "NSE_EQ|INE016A01026"
+  },
+  {
+    "symbol": "DALBHARAT",
+    "asset_key": "NSE_EQ|INE00R701025"
+  },
+  {
+    "symbol": "DEEPAKNTR",
+    "asset_key": "NSE_EQ|INE288B01029"
+  },
+  {
+    "symbol": "DELHIVERY",
+    "asset_key": "NSE_EQ|INE148O01028"
+  },
+  {
+    "symbol": "DIVISLAB",
+    "asset_key": "NSE_EQ|INE361B01024"
+  },
+  {
+    "symbol": "DLF",
+    "asset_key": "NSE_EQ|INE271C01023"
+  },
+  {
+    "symbol": "DMART",
+    "asset_key": "NSE_EQ|INE192R01011"
+  },
+  {
+    "symbol": "DRREDDY",
+    "asset_key": "NSE_EQ|INE089A01031"
+  },
+  {
+    "symbol": "EICHERMOT",
+    "asset_key": "NSE_EQ|INE066A01021"
+  },
+  {
+    "symbol": "ESCORTS",
+    "asset_key": "NSE_EQ|INE042A01014"
+  },
+  {
+    "symbol": "EXIDEIND",
+    "asset_key": "NSE_EQ|INE302A01020"
+  },
+  {
+    "symbol": "FEDERALBNK",
+    "asset_key": "NSE_EQ|INE171A01029"
+  },
+  {
+    "symbol": "GAIL",
+    "asset_key": "NSE_EQ|INE129A01019"
+  },
+  {
+    "symbol": "GLENMARK",
+    "asset_key": "NSE_EQ|INE935A01035"
+  },
+  {
+    "symbol": "GMRAIRPORT",
+    "asset_key": "NSE_EQ|INE776C01039"
+  },
+  {
+    "symbol": "GODREJCP",
+    "asset_key": "NSE_EQ|INE102D01028"
+  },
+  {
+    "symbol": "GODREJPROP",
+    "asset_key": "NSE_EQ|INE484J01027"
+  },
+  {
+    "symbol": "GRANULES",
+    "asset_key": "NSE_EQ|INE101D01020"
+  },
+  {
+    "symbol": "GRASIM",
+    "asset_key": "NSE_EQ|INE047A01021"
+  },
+  {
+    "symbol": "HAL",
+    "asset_key": "NSE_EQ|INE066F01020"
+  },
+  {
+    "symbol": "HAVELLS",
+    "asset_key": "NSE_EQ|INE176B01034"
+  },
+  {
+    "symbol": "HCLTECH",
+    "asset_key": "NSE_EQ|INE860A01027"
+  },
+  {
+    "symbol": "HDFCAMC",
+    "asset_key": "NSE_EQ|INE127D01025"
+  },
+  {
+    "symbol": "HDFCBANK",
+    "asset_key": "NSE_EQ|INE040A01034"
+  },
+  {
+    "symbol": "HDFCLIFE",
+    "asset_key": "NSE_EQ|INE795G01014"
+  },
+  {
+    "symbol": "HEROMOTOCO",
+    "asset_key": "NSE_EQ|INE158A01026"
+  },
+  {
+    "symbol": "HFCL",
+    "asset_key": "NSE_EQ|INE548A01028"
+  },
+  {
+    "symbol": "HINDALCO",
+    "asset_key": "NSE_EQ|INE038A01020"
+  },
+  {
+    "symbol": "HINDCOPPER",
+    "asset_key": "NSE_EQ|INE531E01026"
+  },
+  {
+    "symbol": "HINDPETRO",
+    "asset_key": "NSE_EQ|INE094A01015"
+  },
+  {
+    "symbol": "HINDUNILVR",
+    "asset_key": "NSE_EQ|INE030A01027"
+  },
+  {
+    "symbol": "HUDCO",
+    "asset_key": "NSE_EQ|INE031A01017"
+  },
+  {
+    "symbol": "ICICIBANK",
+    "asset_key": "NSE_EQ|INE090A01021"
+  },
+  {
+    "symbol": "ICICIGI",
+    "asset_key": "NSE_EQ|INE765G01017"
+  },
+  {
+    "symbol": "ICICIPRULI",
+    "asset_key": "NSE_EQ|INE726G01019"
+  },
+  {
+    "symbol": "IDEA",
+    "asset_key": "NSE_EQ|INE669E01016"
+  },
+  {
+    "symbol": "IDFCFIRSTB",
+    "asset_key": "NSE_EQ|INE092T01019"
+  },
+  {
+    "symbol": "IEX",
+    "asset_key": "NSE_EQ|INE022Q01020"
+  },
+  {
+    "symbol": "IGL",
+    "asset_key": "NSE_EQ|INE203G01027"
+  },
+  {
+    "symbol": "IIFL",
+    "asset_key": "NSE_EQ|INE530B01024"
+  },
+  {
+    "symbol": "INDHOTEL",
+    "asset_key": "NSE_EQ|INE053A01029"
+  },
+  {
+    "symbol": "INDIANB",
+    "asset_key": "NSE_EQ|INE562A01011"
+  },
+  {
+    "symbol": "INDIGO",
+    "asset_key": "NSE_EQ|INE646L01027"
+  },
+  {
+    "symbol": "INDUSINDBK",
+    "asset_key": "NSE_EQ|INE095A01012"
+  },
+  {
+    "symbol": "INDUSTOWER",
+    "asset_key": "NSE_EQ|INE121J01017"
+  },
+  {
+    "symbol": "INFY",
+    "asset_key": "NSE_EQ|INE009A01021"
+  },
+  {
+    "symbol": "IOC",
+    "asset_key": "NSE_EQ|INE242A01010"
+  },
+  {
+    "symbol": "IRB",
+    "asset_key": "NSE_EQ|INE821I01022"
+  },
+  {
+    "symbol": "IRCTC",
+    "asset_key": "NSE_EQ|INE335Y01020"
+  },
+  {
+    "symbol": "IREDA",
+    "asset_key": "NSE_EQ|INE202E01016"
+  },
+  {
+    "symbol": "IRFC",
+    "asset_key": "NSE_EQ|INE053F01010"
+  },
+  {
+    "symbol": "ITC",
+    "asset_key": "NSE_EQ|INE154A01025"
+  },
+  {
+    "symbol": "JINDALSTEL",
+    "asset_key": "NSE_EQ|INE749A01030"
+  },
+  {
+    "symbol": "JIOFIN",
+    "asset_key": "NSE_EQ|INE758E01017"
+  },
+  {
+    "symbol": "JKCEMENT",
+    "asset_key": "NSE_EQ|INE823G01014"
+  },
+  {
+    "symbol": "JSL",
+    "asset_key": "NSE_EQ|INE220G01021"
+  },
+  {
+    "symbol": "JSWENERGY",
+    "asset_key": "NSE_EQ|INE121E01018"
+  },
+  {
+    "symbol": "JSWSTEEL",
+    "asset_key": "NSE_EQ|INE019A01038"
+  },
+  {
+    "symbol": "JUBLFOOD",
+    "asset_key": "NSE_EQ|INE797F01020"
+  },
+  {
+    "symbol": "KALYANKJIL",
+    "asset_key": "NSE_EQ|INE303R01014"
+  },
+  {
+    "symbol": "KEI",
+    "asset_key": "NSE_EQ|INE878B01027"
+  },
+  {
+    "symbol": "KOTAKBANK",
+    "asset_key": "NSE_EQ|INE237A01028"
+  },
+  {
+    "symbol": "KPITTECH",
+    "asset_key": "NSE_EQ|INE04I401011"
+  },
+  {
+    "symbol": "LAURUSLABS",
+    "asset_key": "NSE_EQ|INE947Q01028"
+  },
+  {
+    "symbol": "LICHSGFIN",
+    "asset_key": "NSE_EQ|INE115A01026"
+  },
+  {
+    "symbol": "LICI",
+    "asset_key": "NSE_EQ|INE0J1Y01017"
+  },
+  {
+    "symbol": "LODHA",
+    "asset_key": "NSE_EQ|INE670K01029"
+  },
+  {
+    "symbol": "LT",
+    "asset_key": "NSE_EQ|INE018A01030"
+  },
+  {
+    "symbol": "LTF",
+    "asset_key": "NSE_EQ|INE498L01015"
+  },
+  {
+    "symbol": "LTIM",
+    "asset_key": "NSE_EQ|INE214T01019"
+  },
+  {
+    "symbol": "LTTS",
+    "asset_key": "NSE_EQ|INE010V01017"
+  },
+  {
+    "symbol": "LUPIN",
+    "asset_key": "NSE_EQ|INE326A01037"
+  },
+  {
+    "symbol": "M&M",
+    "asset_key": "NSE_EQ|INE101A01026"
+  },
+  {
+    "symbol": "M&MFIN",
+    "asset_key": "NSE_EQ|INE774D01024"
+  },
+  {
+    "symbol": "MANAPPURAM",
+    "asset_key": "NSE_EQ|INE522D01027"
+  },
+  {
+    "symbol": "MARICO",
+    "asset_key": "NSE_EQ|INE196A01026"
+  },
+  {
+    "symbol": "MARUTI",
+    "asset_key": "NSE_EQ|INE585B01010"
+  },
+  {
+    "symbol": "MAXHEALTH",
+    "asset_key": "NSE_EQ|INE027H01010"
+  },
+  {
+    "symbol": "MCX",
+    "asset_key": "NSE_EQ|INE745G01035"
+  },
+  {
+    "symbol": "MFSL",
+    "asset_key": "NSE_EQ|INE180A01020"
+  },
+  {
+    "symbol": "MGL",
+    "asset_key": "NSE_EQ|INE002S01010"
+  },
+  {
+    "symbol": "MOTHERSON",
+    "asset_key": "NSE_EQ|INE775A01035"
+  },
+  {
+    "symbol": "MPHASIS",
+    "asset_key": "NSE_EQ|INE356A01018"
+  },
+  {
+    "symbol": "MRF",
+    "asset_key": "NSE_EQ|INE883A01011"
+  },
+  {
+    "symbol": "MUTHOOTFIN",
+    "asset_key": "NSE_EQ|INE414G01012"
+  },
+  {
+    "symbol": "NATIONALUM",
+    "asset_key": "NSE_EQ|INE139A01034"
+  },
+  {
+    "symbol": "NAUKRI",
+    "asset_key": "NSE_EQ|INE663F01024"
+  },
+  {
+    "symbol": "NBCC",
+    "asset_key": "NSE_EQ|INE095N01031"
+  },
+  {
+    "symbol": "NCC",
+    "asset_key": "NSE_EQ|INE868B01028"
+  },
+  {
+    "symbol": "NESTLEIND",
+    "asset_key": "NSE_EQ|INE239A01024"
+  },
+  {
+    "symbol": "NHPC",
+    "asset_key": "NSE_EQ|INE848E01016"
+  },
+  {
+    "symbol": "NMDC",
+    "asset_key": "NSE_EQ|INE584A01023"
+  },
+  {
+    "symbol": "NTPC",
+    "asset_key": "NSE_EQ|INE733E01010"
+  },
+  {
+    "symbol": "NYKAA",
+    "asset_key": "NSE_EQ|INE388Y01029"
+  },
+  {
+    "symbol": "OBEROIRLTY",
+    "asset_key": "NSE_EQ|INE093I01010"
+  },
+  {
+    "symbol": "OFSS",
+    "asset_key": "NSE_EQ|INE881D01027"
+  },
+  {
+    "symbol": "OIL",
+    "asset_key": "NSE_EQ|INE274J01014"
+  },
+  {
+    "symbol": "ONGC",
+    "asset_key": "NSE_EQ|INE213A01029"
+  },
+  {
+    "symbol": "PAGEIND",
+    "asset_key": "NSE_EQ|INE761H01022"
+  },
+  {
+    "symbol": "PATANJALI",
+    "asset_key": "NSE_EQ|INE619A01035"
+  },
+  {
+    "symbol": "PAYTM",
+    "asset_key": "NSE_EQ|INE982J01020"
+  },
+  {
+    "symbol": "PEL",
+    "asset_key": "NSE_EQ|INE140A01024"
+  },
+  {
+    "symbol": "PERSISTENT",
+    "asset_key": "NSE_EQ|INE262H01021"
+  },
+  {
+    "symbol": "PETRONET",
+    "asset_key": "NSE_EQ|INE347G01014"
+  },
+  {
+    "symbol": "PFC",
+    "asset_key": "NSE_EQ|INE134E01011"
+  },
+  {
+    "symbol": "PHOENIXLTD",
+    "asset_key": "NSE_EQ|INE211B01039"
+  },
+  {
+    "symbol": "PIDILITIND",
+    "asset_key": "NSE_EQ|INE318A01026"
+  },
+  {
+    "symbol": "PIIND",
+    "asset_key": "NSE_EQ|INE603J01030"
+  },
+  {
+    "symbol": "PNB",
+    "asset_key": "NSE_EQ|INE160A01022"
+  },
+  {
+    "symbol": "POLICYBZR",
+    "asset_key": "NSE_EQ|INE417T01026"
+  },
+  {
+    "symbol": "POLYCAB",
+    "asset_key": "NSE_EQ|INE455K01017"
+  },
+  {
+    "symbol": "POONAWALLA",
+    "asset_key": "NSE_EQ|INE511C01022"
+  },
+  {
+    "symbol": "POWERGRID",
+    "asset_key": "NSE_EQ|INE752E01010"
+  },
+  {
+    "symbol": "PRESTIGE",
+    "asset_key": "NSE_EQ|INE811K01011"
+  },
+  {
+    "symbol": "RAMCOCEM",
+    "asset_key": "NSE_EQ|INE331A01037"
+  },
+  {
+    "symbol": "RBLBANK",
+    "asset_key": "NSE_EQ|INE976G01028"
+  },
+  {
+    "symbol": "RECLTD",
+    "asset_key": "NSE_EQ|INE020B01018"
+  },
+  {
+    "symbol": "RELIANCE",
+    "asset_key": "NSE_EQ|INE002A01018"
+  },
+  {
+    "symbol": "SAIL",
+    "asset_key": "NSE_EQ|INE114A01011"
+  },
+  {
+    "symbol": "SBICARD",
+    "asset_key": "NSE_EQ|INE018E01016"
+  },
+  {
+    "symbol": "SBILIFE",
+    "asset_key": "NSE_EQ|INE123W01016"
+  },
+  {
+    "symbol": "SBIN",
+    "asset_key": "NSE_EQ|INE062A01020"
+  },
+  {
+    "symbol": "SHREECEM",
+    "asset_key": "NSE_EQ|INE070A01015"
+  },
+  {
+    "symbol": "SHRIRAMFIN",
+    "asset_key": "NSE_EQ|INE721A01047"
+  },
+  {
+    "symbol": "SIEMENS",
+    "asset_key": "NSE_EQ|INE003A01024"
+  },
+  {
+    "symbol": "SJVN",
+    "asset_key": "NSE_EQ|INE002L01015"
+  },
+  {
+    "symbol": "SOLARINDS",
+    "asset_key": "NSE_EQ|INE343H01029"
+  },
+  {
+    "symbol": "SONACOMS",
+    "asset_key": "NSE_EQ|INE073K01018"
+  },
+  {
+    "symbol": "SRF",
+    "asset_key": "NSE_EQ|INE647A01010"
+  },
+  {
+    "symbol": "SUNPHARMA",
+    "asset_key": "NSE_EQ|INE044A01036"
+  },
+  {
+    "symbol": "SUPREMEIND",
+    "asset_key": "NSE_EQ|INE195A01028"
+  },
+  {
+    "symbol": "SYNGENE",
+    "asset_key": "NSE_EQ|INE398R01022"
+  },
+  {
+    "symbol": "TATACHEM",
+    "asset_key": "NSE_EQ|INE092A01019"
+  },
+  {
+    "symbol": "TATACOMM",
+    "asset_key": "NSE_EQ|INE151A01013"
+  },
+  {
+    "symbol": "TATACONSUM",
+    "asset_key": "NSE_EQ|INE192A01025"
+  },
+  {
+    "symbol": "TATAELXSI",
+    "asset_key": "NSE_EQ|INE670A01012"
+  },
+  {
+    "symbol": "TATAMOTORS",
+    "asset_key": "NSE_EQ|INE155A01022"
+  },
+  {
+    "symbol": "TATAPOWER",
+    "asset_key": "NSE_EQ|INE245A01021"
+  },
+  {
+    "symbol": "TATASTEEL",
+    "asset_key": "NSE_EQ|INE081A01020"
+  },
+  {
+    "symbol": "TATATECH",
+    "asset_key": "NSE_EQ|INE142M01025"
+  },
+  {
+    "symbol": "TCS",
+    "asset_key": "NSE_EQ|INE467B01029"
+  },
+  {
+    "symbol": "TECHM",
+    "asset_key": "NSE_EQ|INE669C01036"
+  },
+  {
+    "symbol": "TIINDIA",
+    "asset_key": "NSE_EQ|INE974X01010"
+  },
+  {
+    "symbol": "TITAGARH",
+    "asset_key": "NSE_EQ|INE615H01020"
+  },
+  {
+    "symbol": "TITAN",
+    "asset_key": "NSE_EQ|INE280A01028"
+  },
+  {
+    "symbol": "TORNTPHARM",
+    "asset_key": "NSE_EQ|INE685A01028"
+  },
+  {
+    "symbol": "TORNTPOWER",
+    "asset_key": "NSE_EQ|INE813H01021"
+  },
+  {
+    "symbol": "TRENT",
+    "asset_key": "NSE_EQ|INE849A01020"
+  },
+  {
+    "symbol": "TVSMOTOR",
+    "asset_key": "NSE_EQ|INE494B01023"
+  },
+  {
+    "symbol": "ULTRACEMCO",
+    "asset_key": "NSE_EQ|INE481G01011"
+  },
+  {
+    "symbol": "UNIONBANK",
+    "asset_key": "NSE_EQ|INE692A01016"
+  },
+  {
+    "symbol": "UNITDSPR",
+    "asset_key": "NSE_EQ|INE854D01024"
+  },
+  {
+    "symbol": "UPL",
+    "asset_key": "NSE_EQ|INE628A01036"
+  },
+  {
+    "symbol": "VBL",
+    "asset_key": "NSE_EQ|INE200M01039"
+  },
+  {
+    "symbol": "VEDL",
+    "asset_key": "NSE_EQ|INE205A01025"
+  },
+  {
+    "symbol": "VOLTAS",
+    "asset_key": "NSE_EQ|INE226A01021"
+  },
+  {
+    "symbol": "WIPRO",
+    "asset_key": "NSE_EQ|INE075A01022"
+  },
+  {
+    "symbol": "YESBANK",
+    "asset_key": "NSE_EQ|INE528G01035"
+  },
+  {
+    "symbol": "ZOMATO",
+    "asset_key": "NSE_EQ|INE758T01015"
+  },
+  {
+    "symbol": "ZYDUSLIFE",
+    "asset_key": "NSE_EQ|INE010B01027"
+  }
 ]

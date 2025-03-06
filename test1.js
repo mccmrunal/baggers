@@ -7,7 +7,7 @@ import csv from "csv-parser";
 import { filterStocks } from "./dynamicData/filteredStocks.js";
 import historicAnalysis from "./dynamicData/historicAnalysis.js";
 import path from 'path';
-
+global.analysisDone = false;
 const TOKEN_FILE = "fyers_token.json"; // File to store token details
 dotenv.config();
 var fyers = new FyersAPI();
@@ -50,7 +50,7 @@ const requestBody = {
   appIdHash: appIdHash,
   refresh_token: process.env.refreshToken,
   pin: process.env.pin
-}
+};
 
 async function refreshAccessToken() {
   try {
@@ -70,7 +70,9 @@ async function refreshAccessToken() {
   } catch (error) {
     console.error("❌ Error refreshing token:", error.response ? error.response.data : error.message);
   }
-}
+};
+await checkAccess();
+
 function isTokenExpired() {
   ensureTokenFileExists();
   if (!fs.existsSync(TOKEN_FILE)) {
@@ -86,7 +88,7 @@ function isTokenExpired() {
   const currentTime = new Date().getTime();
   const tokenAge = (currentTime - tokenTimestamp) / (1000 * 60 * 60); // Convert ms to hours
 
-  return tokenAge >= 6; // Refresh if the token is older than 23.5 hours
+  return tokenAge >= 1; // Refresh if the token is older than 23.5 hours
 }
 
 function ensureTokenFileExists() {
@@ -118,6 +120,7 @@ let requestCount = 0; // Global counter to track requests across function calls
 
 async function processStocksInBatches(fyers, stockArray, timestamp, delayBetweenRequests = 100,callfunc,timeframe) {
     const filteredStocks = [];
+    console.time("Loop Time");
 
     for (let i = 0; i < stockArray.length; i++) {
         const symbol = stockArray[i];
@@ -127,9 +130,11 @@ async function processStocksInBatches(fyers, stockArray, timestamp, delayBetween
             if(callfunc){
               result = await callfunc(fyers, symbol, timestamp);
             }else{
-               result = await filterStocks(fyers, symbol, timeframe,delayBetweenRequests,timestamp);
+               result = await filterStocks( symbol, timestamp,timeframe);
             }
-            filteredStocks.push(result);
+            if(!!result){
+              filteredStocks.push(result.symbol);
+            }
         } catch (error) {
             console.error(`❌ Error processing ${symbol}:`, error.message);
         }
@@ -137,22 +142,23 @@ async function processStocksInBatches(fyers, stockArray, timestamp, delayBetween
         requestCount++; // Increment global request count
 
         // Wait after every request to respect 10 requests/sec limit
-        await new Promise(resolve => setTimeout(resolve, delayBetweenRequests));
 
         // After every 10 requests, wait 1 second
         if (requestCount % 10 === 0) {
             console.log(`⏳ Pausing for 1 second after ${requestCount} requests...`);
-            await new Promise(resolve => setTimeout(resolve, 1000));
         }
 
         // After every 100 requests, wait 1 minute and reset the counter
-        if (requestCount % 100 === 0) {
+        if (requestCount % 200 === 0) {
             console.log(`🚨 Reached 100 requests! Waiting for 1 minute to respect API limit...`);
-            await new Promise(resolve => setTimeout(resolve, 60000));
+            await new Promise(resolve => setTimeout(resolve, 1));
             requestCount = 0; // Reset counter after cooldown
         }
+    };
+    if(!callfunc){
+      global.analysisDone  = true;
     }
-
+    console.timeEnd("Loop Time"); // Logs time in milliseconds
     return filteredStocks;
 }
 
@@ -161,7 +167,7 @@ console.log(filteredArray)
 
 async function fetchStocks(timestamp,callfunc,timeframe) {
   
-  await checkAccess();
+  // await checkAccess();
 
   console.log(`🔍 Fetching stocks for timestamp: ${timestamp}...`);
   if(callfunc){
@@ -174,11 +180,11 @@ async function fetchStocks(timestamp,callfunc,timeframe) {
 }
 
 async function historicalData(from,to,res) {
+  // balanceCheck(); 
   // await checkAccess(); 
 
   let startDate = new Date(from+"T03:45:00Z"); // 9:15 AM IST (Convert to UTC)
-  let endDate = new Date(to+"T10:00:00Z");   // End on Feb 29th, 2024 (Leap Year)
-  let tradingDays = [];
+  let endDate = new Date(to + "T09:50:00Z");   let tradingDays = [];
   let results = {};
 
   // Generate a list of trading days (excluding weekends)
@@ -209,7 +215,13 @@ async function historicalData(from,to,res) {
       console.error("Error sending file:", err);
       res.status(500).send("Error sending file");
     }
-    fs.unlinkSync(filePath); // Delete the file after sending
+    // fs.unlinkSync(filePath); // Delete the file after sending
   });
 }
+
+// function balanceCheck(){fyers.get_funds().then((response)=>{
+//   console.log(response)
+// }).catch((error)=>{
+//   console.log(error)
+// })}
 export default {fetchStocks,historicalData};
