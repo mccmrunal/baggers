@@ -23,6 +23,7 @@ const fyersOrderdata = new fyersDataSocket(tokenData.access_token);
 const subscribedStocks = new Map();
 const trackedStocks = new Map();
 const entryTaken = new Map();
+let lastProcessedTime = new Map();
 
 // **Configure WebSocket**
 fyersOrderdata.mode(fyersOrderdata.LiteMode);
@@ -47,55 +48,77 @@ fyersOrderdata.on("connect", () => {
 fyersOrderdata.on("message", async (message) => {
     if (message.type === "sf" && global.analysisDone === true) {
         const { symbol, ltp } = message;
+        const now = Date.now();
+        if (lastProcessedTime.has(symbol) && now - lastProcessedTime.get(symbol) < 1000) { 
+            return; // Ignore updates that come within 2 seconds
+        }
+        lastProcessedTime.set(symbol, now);
         console.log(`📊 Live update: ${symbol} - ${ltp}`);
 
-        if (trackedStocks.has(symbol)) {
+        if (trackedStocks.has(symbol) && !entryTaken.has(symbol)) {
             const stock = trackedStocks.get(symbol);
             stock.lastPrice = ltp;
 
             if (stock.tradeType === "BUY" && ltp >= stock.entry) {
-                let orderDetails =  await placeOrder(symbol,"BUY",ltp,stock.stopLoss,stock.target,subscribedStocks);
-                entryTaken.set(symbol, { tradeType:stock.tradeType, stopLoss:stock.stopLoss, target:stock.target, entry:stock.entry,stopLossId:orderDetails[1].body.id,target:orderDetails[2].body.id });
-                trackedStocks.delete(`NSE:${symbol}-EQ`);
-                await notifyUser(symbol, ltp, "BUY");
+                let orderDetails = await placeOrder(symbol, "BUY", ltp, stock.stopLoss, stock.target, subscribedStocks);
+                
+                if (orderDetails) { 
+                    entryTaken.set(symbol, {
+                        tradeType: stock.tradeType,
+                        stopLoss: stock.stopLoss,
+                        target: stock.target,
+                        entry: stock.entry,
+                        stopLossId: orderDetails[1]?.body?.id, // Ensure valid indexing
+                        targetId: orderDetails[2]?.body?.id,
+                    });
+
+                    trackedStocks.delete(symbol);
+                    await notifyUser(symbol, ltp, "BUY");
+                }
             } else if (stock.tradeType === "SELL" && ltp <= stock.entry) {
-                let orderDetails = await placeOrder(symbol,"SELL",ltp,stock.stopLoss,stock.target,subscribedStocks)
-                entryTaken.set(symbol, { tradeType:stock.tradeType, stopLoss:stock.stopLoss, target:stock.target, entry:stock.entry,stopLossId:orderDetails[1].body.id,targetId:orderDetails[2].body.id });
-                trackedStocks.delete(`NSE:${symbol}-EQ`);
-                await notifyUser(symbol, ltp, "SELL");
+                let orderDetails = await placeOrder(symbol, "SELL", ltp, stock.stopLoss, stock.target, subscribedStocks);
+
+                if (orderDetails) {
+                    entryTaken.set(symbol, {
+                        tradeType: stock.tradeType,
+                        stopLoss: stock.stopLoss,
+                        target: stock.target,
+                        entry: stock.entry,
+                        stopLossId: orderDetails[1]?.body?.id,
+                        targetId: orderDetails[2]?.body?.id,
+                    });
+
+                    trackedStocks.delete(symbol);
+                    await notifyUser(symbol, ltp, "SELL");
+                }
             }
-        }else if(entryTaken.has(symbol)){
+        } else if (entryTaken.has(symbol)) {
             const stock = entryTaken.get(symbol);
             if (stock.tradeType === "BUY" && ltp >= stock.target) {
-                const reqBody = {"id":stock.stopLossId};
-                await fyers.cancel_order(reqBody);
-                entryTaken.delete(`NSE:${symbol}-EQ`);
-                console.log(`profit booked for ${Symbol}`);
-                await fyersOrderdata.unsubscribe([symbol],false);
-            }else if(stock.tradeType === "BUY" && ltp <= stock.stopLoss){
-                const reqBody = {"id":stock.targetId};
-                await fyers.cancel_order(reqBody);
-                entryTaken.delete(`NSE:${symbol}-EQ`);
-                console.log(`Loss booked for ${Symbol}`);
-                await fyersOrderdata.unsubscribe([symbol],false);
-            }           
-            else if (stock.tradeType === "SELL" && ltp <= stock.target) {
-                const reqBody = {"id":stock.stopLossId};
-                await fyers.cancel_order(reqBody);
-                entryTaken.delete(`NSE:${symbol}-EQ`);
-                console.log(`profit booked for ${Symbol}`);
-                await fyersOrderdata.unsubscribe([symbol],false);
-            }else if(stock.tradeType === "SELL" && ltp >= stock.stopLoss){
-                const reqBody = {"id":stock.targetId};
-                await fyers.cancel_order(reqBody);
-                entryTaken.delete(`NSE:${symbol}-EQ`);
-                console.log(`Loss booked for ${Symbol}`);
-                await fyersOrderdata.unsubscribe([symbol],false);
+                await fyersOrderdata.cancel_order({ id: stock.stopLossId });
+                entryTaken.delete(symbol);
+                console.log(`✅ Profit booked for ${symbol}`);
+                await fyersOrderdata.unsubscribe([symbol], false);
+            } else if (stock.tradeType === "BUY" && ltp <= stock.stopLoss) {
+                await fyersOrderdata.cancel_order({ id: stock.targetId });
+                entryTaken.delete(symbol);
+                console.log(`❌ Loss booked for ${symbol}`);
+                await fyersOrderdata.unsubscribe([symbol], false);
+            } else if (stock.tradeType === "SELL" && ltp <= stock.target) {
+                await fyersOrderdata.cancel_order({ id: stock.stopLossId });
+                entryTaken.delete(symbol);
+                console.log(`✅ Profit booked for ${symbol}`);
+                await fyersOrderdata.unsubscribe([symbol], false);
+            } else if (stock.tradeType === "SELL" && ltp >= stock.stopLoss) {
+                await fyersOrderdata.cancel_order({ id: stock.targetId });
+                entryTaken.delete(symbol);
+                console.log(`❌ Loss booked for ${symbol}`);
+                await fyersOrderdata.unsubscribe([symbol], false);
             }
-
         }
     }
 });
+
 
 fyersOrderdata.on("close", () => console.log("❌ WebSocket disconnected"));
 

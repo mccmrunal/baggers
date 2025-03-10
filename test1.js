@@ -88,7 +88,7 @@ function isTokenExpired() {
   const currentTime = new Date().getTime();
   const tokenAge = (currentTime - tokenTimestamp) / (1000 * 60 * 60); // Convert ms to hours
 
-  return tokenAge >= 1; // Refresh if the token is older than 23.5 hours
+  return tokenAge >= 10; // Refresh if the token is older than 23.5 hours
 }
 
 function ensureTokenFileExists() {
@@ -195,6 +195,7 @@ async function historicalData(from,to,res) {
       }
       startDate.setDate(startDate.getDate() + 1);
   }
+  const filePath = path.join(process.cwd(), "trade_results.xlsx");
 
   // Fetch stocks for each trading day
   for (let tradingDay of tradingDays) {
@@ -206,7 +207,6 @@ async function historicalData(from,to,res) {
       results[tradingDay.toISOString().split("T")[0]] = stockData;
       await new Promise(resolve => setTimeout(resolve, 2000)); // Avoid rate limits
   }
-  const filePath = path.join(process.cwd(), "trade_results.xlsx");
   res.setHeader("Content-Disposition", "attachment; filename=trade_results.xlsx");
   res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
   res.sendFile(filePath, (err) => {

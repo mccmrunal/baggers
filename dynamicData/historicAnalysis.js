@@ -25,6 +25,9 @@ module.exports = {
             };
             
             let data = await axios(config);
+            if(data.data.data.candles.length === 0 ){
+                return false;
+            }
             let arrUpstox = data.data.data.candles.splice(0-5);
             const open = arrUpstox[4][1];  // Open of the first 1-min candle (9:15 AM)
             const close = arrUpstox[0][4]; // Close of the last 1-min candle (9:19 AM)
@@ -119,6 +122,9 @@ module.exports = {
             if (error.code === 429) {
                 console.log(error)
                 await new Promise(resolve => setTimeout(resolve, delay * 2));
+            }
+            else{
+                console.log(error)
             }
             return false;
         }

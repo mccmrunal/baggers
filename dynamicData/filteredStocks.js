@@ -10,7 +10,7 @@ module.exports = {
             let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `https://api.upstox.com/v2/historical-candle/${symbol.asset_key}/1minute/${today}/${today}`,
+            url: `https://api.upstox.com/v2/historical-candle/intraday/${symbol.asset_key}/1minute`,
             headers: { 
             'Accept': 'application/json'
             }
