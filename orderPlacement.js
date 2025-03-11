@@ -1,69 +1,62 @@
-async function placeOrder(symbol, type, ltp, stoploss, target, subscribedStocks) {
-    let fs = require("fs");
+const fs = require("fs");
+const path = require("path");
+const FyersAPI = require("fyers-api-v3");
+const fyers = new FyersAPI.fyersModel();
+
+fyers.setAppId(process.env.appId);
+fyers.setRedirectUrl(`https://127.0.0.1`);
+
+const TOKEN_FILE = "fyers_token.json"; // File to store token details
+process.env.access_token = JSON.parse(fs.readFileSync(TOKEN_FILE, "utf-8")).access_token;
+
+// Ensure trade balance is only calculated once
+if (!global.tradeBalance) {
     global.tradeBalance = {
-        caculated:false,
-        balance : 0
-    }
-    const path = require("path");
-        // const logFilePath = path.join(__dirname, "fyers_order_log.txt");
-    var FyersAPI = require("fyers-api-v3");
-    var fyers = new FyersAPI.fyersModel();
+        calculated: false,
+        balance: 0
+    };
+}
+
+async function placeOrder(symbol, type, ltp, stoploss, target, subscribedStocks) {
+    const FyersAPI = require("fyers-api-v3");
+    const fyers = new FyersAPI.fyersModel();
+
     fyers.setAppId(process.env.appId);
     fyers.setRedirectUrl(`https://127.0.0.1`);
-    const TOKEN_FILE = "fyers_token.json"; // File to store token details
-    fyers.setAccessToken(JSON.parse(fs.readFileSync(TOKEN_FILE, "utf-8")).access_token);
-    let fundsData = await fyers.get_funds();
-    const availableBalance = fundsData.fund_limit.find(item => item.title === 'Available Balance');
-    let subscribedStockslength = subscribedStocks.size;
-    let tradeBalance = 0;
-    function logToFile(data) {
-        // const logFilePath = path.join(__dirname, "fyers_order_log.txt");
-        const timestamp = new Date().toISOString();
-        const logEntry = `${timestamp} - ${JSON.stringify(data, null, 2)}\n\n`;
-    
-        // fs.appendFile(logFilePath, logEntry, (err) => {
-        //     if (err) {
-        //         console.error("Error logging data to file:", err);
-        //     }
-        // });
-    }
-    if(!global.tradeBalance.caculated)
-    {    if (subscribedStockslength > 13) {
+    fyers.setAccessToken(process.env.access_token);
+        let subscribedStockslength = subscribedStocks.size;
+
+    // Calculate trade balance only once
+    if (!global.tradeBalance.calculated) {
+        let fundsData = await fyers.get_funds();
+        const availableBalance = fundsData.fund_limit.find(item => item.title === 'Available Balance');
+
+        if (subscribedStockslength > 13) {
             let stocksToInvestIn = Math.floor(subscribedStockslength * 0.8); // 80% of stocks
-            tradeBalance = Math.floor(availableBalance.equityAmount / stocksToInvestIn);
-
-            console.log(`Investing ₹${tradeBalance} per stock in ${stocksToInvestIn} stocks.`);
+            global.tradeBalance.balance = Math.floor(availableBalance.equityAmount / stocksToInvestIn);
+            console.log(`Investing ₹${global.tradeBalance.balance} per stock in ${stocksToInvestIn} stocks.`);
         } else {
-            tradeBalance = Math.floor(availableBalance.equityAmount / subscribedStockslength);
+            global.tradeBalance.balance = Math.floor(availableBalance.equityAmount / subscribedStockslength);
         }
-    global.tradeBalance.caculated = true;
-    global.tradeBalance.balance = tradeBalance;
+        global.tradeBalance.calculated = true; // Mark as calculated
     }
 
-    let side;
-    if (type === "BUY") {
-        side = 1
-        // target = target - ltp;
-        // stoploss = ltp - stoploss;
-    } else {
-        side = -1;
-        // target = ltp - target;
-        // stoploss = stoploss - ltp;
-    }
+    let side = type === "BUY" ? 1 : -1;
     console.log(`📢 Placing ${type} order for ${symbol}`);
 
-    const qty = Math.floor((global.tradeBalance.balance* 5.0)  / ltp);
+    const qty = Math.floor((global.tradeBalance.balance * 5.0) / ltp);
 
     if (qty <= 0) {
         console.error("❌ Invalid quantity: Allocation too low for the given LTP.");
         return;
     }
+
     function roundToTickSize(price, tickSize = 0.05) {
         return Math.round(price / tickSize) * tickSize;
     }
-    const reqBody =
 
-        [{
+    const reqBody = [
+        {
             "symbol": symbol,
             "qty": qty,
             "type": 2,
@@ -78,10 +71,10 @@ async function placeOrder(symbol, type, ltp, stoploss, target, subscribedStocks)
             "takeProfit": 0
         },
         {
-            "symbol": symbol,//stoploss
+            "symbol": symbol, // Stop-loss order
             "qty": qty,
             "type": 3,
-            "side": 0 - (side),
+            "side": -side,
             "productType": "INTRADAY",
             "limitPrice": 0,
             "stopPrice": roundToTickSize(stoploss),
@@ -90,11 +83,12 @@ async function placeOrder(symbol, type, ltp, stoploss, target, subscribedStocks)
             "offlineOrder": false,
             "stopLoss": 0,
             "takeProfit": 0
-        }, {
-            "symbol": symbol,//target
+        },
+        {
+            "symbol": symbol, // Target order
             "qty": qty,
             "type": 1,
-            "side": 0 - (side),
+            "side": -side,
             "productType": "INTRADAY",
             "limitPrice": roundToTickSize(target),
             "stopPrice": 0,
@@ -103,15 +97,13 @@ async function placeOrder(symbol, type, ltp, stoploss, target, subscribedStocks)
             "offlineOrder": false,
             "stopLoss": 0,
             "takeProfit": 0
-        }];
-
+        }
+    ];
 
     console.log(`📝 Order Details:`, reqBody);
 
     try {
-        // await logToFile(reqBody);
         const response = await fyers.place_multi_order(reqBody);
-        // await logToFile(response);
         console.log("✅ Order placed successfully:", symbol);
         return response.data;
     } catch (error) {
@@ -119,4 +111,19 @@ async function placeOrder(symbol, type, ltp, stoploss, target, subscribedStocks)
     }
 }
 
-module.exports = { placeOrder }
+async function cancel_order(data) {
+    const FyersAPI = require("fyers-api-v3");
+    const fyers = new FyersAPI.fyersModel();
+
+    fyers.setAppId(process.env.appId);
+    fyers.setRedirectUrl(`https://127.0.0.1`);
+    fyers.setAccessToken(process.env.access_token);
+    try{
+    let response = await fyers.cancel_order(data);
+    console.log(response);
+    }catch(err){
+        console.log(err);
+    }
+}
+
+module.exports = { placeOrder,cancel_order };

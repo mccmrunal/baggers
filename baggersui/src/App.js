@@ -114,10 +114,10 @@ function App() {
       if (Array.isArray(data)) {
         clearInterval(timerInterval);
 
-        data.forEach((symbol) => {
-          const url = `https://www.tradingview.com/chart/?symbol=NSE%3A${symbol}&interval=${timeframe}`;
-          window.open(url, "_blank");
-        });
+        // data.forEach((symbol) => {
+        //   const url = `https://www.tradingview.com/chart/?symbol=NSE%3A${symbol}&interval=${timeframe}`;
+        //   window.open(url, "_blank");
+        // });
 
         setLoading(false);
         setResponseMessage(`Stocks opened in ${data}   seconds!`);

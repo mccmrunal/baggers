@@ -38,7 +38,10 @@ module.exports = {
                 console.log(`⛔ Skipping ${symbol.symbol}-EQ as candle strength is ${strength.toFixed(3)}% (< 50%)`);
                 return false;
             }
-
+            if (openUpstox === closeUpstox && closeUpstox === highUpstox && highUpstox === lowUpstox) {
+                console.log(`${symbol.symbol} has hit a lower circuit`)
+                return false;
+            }
 
             const trend = openUpstox > closeUpstox ? "bearish" : "bullish";
             const isNearLow = openUpstox === highUpstox ? true :false;

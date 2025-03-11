@@ -15,10 +15,14 @@ module.exports = {
             
             // Fetch first 5-minute candle
             const date = new Date(startDay * 1000).toISOString().split('T')[0];
+            let url =  `https://api.upstox.com/v2/historical-candle/${symbol.asset_key}/1minute/${date}/${date}`;
+            if(date === new Date().toISOString().split('T')[0]){
+                url =  `https://api.upstox.com/v2/historical-candle/intraday/${symbol.asset_key}/1minute`
+            }
             let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `https://api.upstox.com/v2/historical-candle/${symbol.asset_key}/1minute/${date}/${date}`,
+            url: url,
             headers: { 
             'Accept': 'application/json'
             }
@@ -48,6 +52,10 @@ module.exports = {
             if (percentageChange > 1.5 || strength < 50) return "NO TRADE";
             if(trend && (isNearLow || isNearHigh) && (percentageChange < 1.5 && strength >= 50)){
                 console.log(symbol)
+            }
+            if (open === close && close === high && high === low) {
+                console.log(`${symbol.symbol} has hit a lower circuit`)
+                return false;
             }
             
             if (trend === "bearish" && isNearLow) {

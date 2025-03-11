@@ -1,35 +1,46 @@
+require("dotenv").config();  // Load environment variables from a .env file
 const twilio = require("twilio");
 
-// Twilio credentials (get these from your Twilio console)
-const accountSid = "AC4bd6cd5a63867055fcea533faa10c4a1";  // Replace with your Twilio SID
-const authToken = "4c5c97ab6bf4d721c306307b51cb1a91";    // Replace with your Twilio Auth Token
+// Load credentials from environment variables
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+if (!accountSid || !authToken) {
+    console.error("❌ Twilio credentials are missing. Please set them in the .env file.");
+    process.exit(1);
+}
+
 const client = new twilio(accountSid, authToken);
 
-// Function to send a WhatsApp message
+// Recipients & message details
 const recipients = [
-    'whatsapp:+917972006469', // Example: India
-    'whatsapp:+917387911579', // Example: UK
-  ];
-const fromNumber = 'whatsapp:+14155238886';
-const messageBody = 'Borgaya jhatu';
+    "whatsapp:+917972006469",
+    "whatsapp:+917387911579"
+];
+const fromNumber = "whatsapp:+14155238886";
 
-
+// Function to send WhatsApp messages with rate limiting (1 RPS)
 async function sendWhatsAppMessages(message) {
-    try {
-      const messagePromises = recipients.map(async (toNumber) => {
-        return client.messages.create({
-          from: fromNumber,
-          to: toNumber,
-          body: message
-        });
-      });
-  
-      const results = await Promise.all(messagePromises);
-      console.log('✅ Messages sent successfully:', results);
-    } catch (error) {
-      console.error('❌ Error sending WhatsApp messages:', error);
+    console.log("⏳ Sending WhatsApp messages with rate limiting...");
+
+    for (const toNumber of recipients) {
+        try {
+            const result = await client.messages.create({
+                from: fromNumber,
+                to: toNumber,
+                body: message
+            });
+
+            console.log(`✅ Message sent to ${toNumber}:`, result.sid);
+        } catch (error) {
+            console.error(`❌ Error sending message to ${toNumber}:`, error);
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before next message
     }
-  }
-  
-  // Call function
-  module.exports = {sendWhatsAppMessages}
+
+    console.log("✅ All messages sent!");
+}
+
+// Export function
+module.exports = { sendWhatsAppMessages };

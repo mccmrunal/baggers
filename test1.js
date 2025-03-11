@@ -173,6 +173,8 @@ async function fetchStocks(timestamp,callfunc,timeframe) {
   if(callfunc){
   filteredArray = await processStocksInBatches(fyers, stockArray, timestamp, 100,callfunc);
   }else{
+    const url = "https://api.upstox.com/v2/historical-candle/intraday/NSE_EQ%7CINE674K01013/1minute";
+    const marketData = await waitForMarketStart(url);
     filteredArray = await processStocksInBatches(fyers, stockArray, timestamp, 100,null,timeframe);
   }
   console.log("✅ Filtered Stocks:", filteredArray);
@@ -218,10 +220,31 @@ async function historicalData(from,to,res) {
     // fs.unlinkSync(filePath); // Delete the file after sending
   });
 }
+async function waitForMarketStart(url, interval = 500) {
+  console.log("⏳ Waiting for market to start...");
+
+  while (true) {
+      try {
+          const response = await fetch(url);
+          if (response.ok) {
+              const data = await response.json();
+              if (data && data.data && data.data.candles && data.data.candles.length > 0) {
+                  console.log("✅ Market has started!", data);
+                  return data; // Exit loop once data is available
+              }
+          }
+      } catch (error) {
+          console.log(`❌ Request failed: ${error.message}`);
+      }
+
+      console.log("⏳ Market not started yet, retrying...");
+      await new Promise(resolve => setTimeout(resolve, interval)); // Wait for the interval before retrying
+  }
+}
 
 // function balanceCheck(){fyers.get_funds().then((response)=>{
 //   console.log(response)
 // }).catch((error)=>{
 //   console.log(error)
 // })}
-export default {fetchStocks,historicalData};
+export default {fetchStocks,historicalData,checkAccess};

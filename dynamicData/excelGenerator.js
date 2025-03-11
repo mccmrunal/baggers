@@ -38,7 +38,7 @@ module.exports = {
       }
 
       // Append new row with trade details
-      sheetData.push([date.toLocaleString(), symbol, trend, entryPrice, stopLoss, targetPrice, result, lossPercentage]);
+      sheetData.push([date.toLocaleString(), symbol, trend, entryPrice, stopLoss, targetPrice, Number(lossPercentage) > 0.00?"PROFIT":"LOSS", Number(lossPercentage)]);
 
       // Convert data back to worksheet & update workbook
       const updatedSheet = xlsx.utils.aoa_to_sheet(sheetData);
